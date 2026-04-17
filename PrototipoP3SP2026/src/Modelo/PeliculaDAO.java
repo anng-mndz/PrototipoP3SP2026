@@ -1,0 +1,198 @@
+package Modelo;
+
+import Controlador.clsUsuarioConectado;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
+public class PeliculaDAO {
+
+    /**
+     * Lista todas las películas de la base de datos
+     * @return Lista de objetos clsPelicula
+     */
+    public List<clsPelicula> listar() {
+        List<clsPelicula> lista = new ArrayList<>();
+        String sql = "SELECT * FROM Peliculas";
+
+        try (Connection conn = Conexion.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                clsPelicula pelicula = new clsPelicula();
+                pelicula.setIdPelicula(rs.getInt("idPeliculas"));
+                pelicula.setNombre(rs.getString("Nombre"));
+                pelicula.setClasificacion(rs.getString("Clasificacion"));
+                pelicula.setGenero(rs.getString("Genero"));
+                pelicula.setSubtitulado(rs.getString("Subtitulado"));
+                pelicula.setIdioma(rs.getString("Idioma"));
+                pelicula.setPrecio(rs.getDouble("precio"));
+                lista.add(pelicula);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Error al listar películas", e);
+        }
+
+        return lista;
+    }
+
+    /**
+     * Inserta una nueva película en la base de datos.
+     * También registra la acción en la bitácora.
+     * 
+     * @param pelicula Objeto clsPelicula con los datos a insertar
+     */
+    public void insert(clsPelicula pelicula) {
+
+        String sql = "INSERT INTO Peliculas (Nombre, Clasificacion, Genero, Subtitulado, Idioma, precio) " +
+                     "VALUES (?, ?, ?, ?, ?, ?)";
+
+        try (Connection conn = Conexion.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, pelicula.getNombre());
+            ps.setString(2, pelicula.getClasificacion());
+            ps.setString(3, pelicula.getGenero());
+            ps.setString(4, pelicula.getSubtitulado());
+            ps.setString(5, pelicula.getIdioma());
+            ps.setDouble(6, pelicula.getPrecio());
+
+            int rows = ps.executeUpdate();
+
+            // Validación de inserción exitosa
+            if (rows > 0) {
+
+                // Registro en bitácora
+                try {
+                    registrarBitacora("INSERT película: " + pelicula.getNombre() +
+                                      " | Género: " + pelicula.getGenero());
+                } catch (Exception ex) {
+                    System.out.println("Error en bitácora (no crítico): " + ex.getMessage());
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Error al insertar película", e);
+        }
+    }
+
+    /**
+     * Actualiza los datos de una película existente.
+     * Registra la operación en la bitácora.
+     * 
+     * @param pelicula Objeto clsPelicula con los datos actualizados
+     */
+    public void update(clsPelicula pelicula) {
+
+        String sql = "UPDATE Peliculas SET Nombre=?, Clasificacion=?, Genero=?, " +
+                     "Subtitulado=?, Idioma=?, precio=? WHERE idPeliculas=?";
+
+        try (Connection conn = Conexion.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, pelicula.getNombre());
+            ps.setString(2, pelicula.getClasificacion());
+            ps.setString(3, pelicula.getGenero());
+            ps.setString(4, pelicula.getSubtitulado());
+            ps.setString(5, pelicula.getIdioma());
+            ps.setDouble(6, pelicula.getPrecio());
+            ps.setInt(7, pelicula.getIdPelicula());
+
+            int rows = ps.executeUpdate();
+
+            if (rows > 0) {
+
+                // Registro en bitácora
+                try {
+                    registrarBitacora("UPDATE película ID: " + pelicula.getIdPelicula() +
+                                      " | Nombre: " + pelicula.getNombre());
+                } catch (Exception ex) {
+                    System.out.println("Error en bitácora (no crítico): " + ex.getMessage());
+                }
+
+            } else {
+                throw new RuntimeException("No se encontró la película para actualizar");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Error al actualizar película", e);
+        }
+    }
+
+    /**
+     * Elimina una película de la base de datos según su ID.
+     * Registra la acción en la bitácora.
+     * 
+     * @param idPelicula ID de la película a eliminar
+     */
+    public void delete(int idPelicula) {
+
+        String sql = "DELETE FROM Peliculas WHERE idPeliculas=?";
+
+        try (Connection conn = Conexion.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, idPelicula);
+            int rows = ps.executeUpdate();
+
+            if (rows > 0) {
+
+                // Registro en bitácora
+                try {
+                    registrarBitacora("DELETE película ID: " + idPelicula);
+                } catch (Exception ex) {
+                    System.out.println("Error en bitácora (no crítico): " + ex.getMessage());
+                }
+
+            } else {
+                throw new RuntimeException("No se encontró la película para eliminar");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Error al eliminar película", e);
+        }
+    }
+
+    /**
+     * Consulta una película específica por su ID.
+     * 
+     * @param idPelicula ID de la película
+     * @return Objeto clsPelicula o null si no existe
+     */
+    public clsPelicula query(int idPelicula) {
+
+        clsPelicula pelicula = null;
+        String sql = "SELECT * FROM Peliculas WHERE idPeliculas=?";
+
+        try (Connection conn = Conexion.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, idPelicula);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    pelicula = new clsPelicula();
+                    pelicula.setIdPelicula(rs.getInt("idPeliculas"));
+                    pelicula.setNombre(rs.getString("Nombre"));
+                    pelicula.setClasificacion(rs.getString("Clasificacion"));
+                    pelicula.setGenero(rs.getString("Genero"));
+                    pelicula.setSubtitulado(rs.getString("Subtitulado"));
+                    pelicula.setIdioma(rs.getString("Idioma"));
+                    pelicula.setPrecio(rs.getDouble("precio"));
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Error al consultar película", e);
+        }
+
+        return pelicula;
+    }
+}
