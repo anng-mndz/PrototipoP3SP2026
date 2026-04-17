@@ -235,15 +235,36 @@ public class frmPelicula extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNombreActionPerformed
 
     private void btnInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertarActionPerformed
-    btnInsertarActionPerformed(evt);
+    try {
+        clsPelicula p = obtenerDatos();
+        dao.insert(p);
+        cargarTabla();
+        JOptionPane.showMessageDialog(this, "Película insertada correctamente");
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Error al insertar: " + e.getMessage());
+    }
     }//GEN-LAST:event_btnInsertarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-    btnActualizarActionPerformed(evt);
+     try {
+        clsPelicula p = obtenerDatos();
+        dao.update(p);
+        cargarTabla();
+        JOptionPane.showMessageDialog(this, "Película actualizada correctamente");
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Error al actualizar: " + e.getMessage());
+    }
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-    btnEliminarActionPerformed(evt);
+    try {
+        int id = Integer.parseInt(txtID.getText());
+        dao.delete(id);
+        cargarTabla();
+        JOptionPane.showMessageDialog(this, "Película eliminada correctamente");
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Error al eliminar: " + e.getMessage());
+    }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     /**
