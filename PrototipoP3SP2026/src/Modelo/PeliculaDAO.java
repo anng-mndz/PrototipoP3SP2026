@@ -1,6 +1,5 @@
 package Modelo;
 
-import Controlador.clsUsuarioConectado;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +40,6 @@ public class PeliculaDAO {
 
     /**
      * Inserta una nueva película en la base de datos.
-     * También registra la acción en la bitácora.
      * 
      * @param pelicula Objeto clsPelicula con los datos a insertar
      */
@@ -60,19 +58,7 @@ public class PeliculaDAO {
             ps.setString(5, pelicula.getIdioma());
             ps.setDouble(6, pelicula.getPrecio());
 
-            int rows = ps.executeUpdate();
-
-            // Validación de inserción exitosa
-            if (rows > 0) {
-
-                // Registro en bitácora
-                try {
-                    registrarBitacora("INSERT película: " + pelicula.getNombre() +
-                                      " | Género: " + pelicula.getGenero());
-                } catch (Exception ex) {
-                    System.out.println("Error en bitácora (no crítico): " + ex.getMessage());
-                }
-            }
+            ps.executeUpdate();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -82,7 +68,6 @@ public class PeliculaDAO {
 
     /**
      * Actualiza los datos de una película existente.
-     * Registra la operación en la bitácora.
      * 
      * @param pelicula Objeto clsPelicula con los datos actualizados
      */
@@ -104,17 +89,7 @@ public class PeliculaDAO {
 
             int rows = ps.executeUpdate();
 
-            if (rows > 0) {
-
-                // Registro en bitácora
-                try {
-                    registrarBitacora("UPDATE película ID: " + pelicula.getIdPelicula() +
-                                      " | Nombre: " + pelicula.getNombre());
-                } catch (Exception ex) {
-                    System.out.println("Error en bitácora (no crítico): " + ex.getMessage());
-                }
-
-            } else {
+            if (rows == 0) {
                 throw new RuntimeException("No se encontró la película para actualizar");
             }
 
@@ -126,7 +101,6 @@ public class PeliculaDAO {
 
     /**
      * Elimina una película de la base de datos según su ID.
-     * Registra la acción en la bitácora.
      * 
      * @param idPelicula ID de la película a eliminar
      */
@@ -140,16 +114,7 @@ public class PeliculaDAO {
             ps.setInt(1, idPelicula);
             int rows = ps.executeUpdate();
 
-            if (rows > 0) {
-
-                // Registro en bitácora
-                try {
-                    registrarBitacora("DELETE película ID: " + idPelicula);
-                } catch (Exception ex) {
-                    System.out.println("Error en bitácora (no crítico): " + ex.getMessage());
-                }
-
-            } else {
+            if (rows == 0) {
                 throw new RuntimeException("No se encontró la película para eliminar");
             }
 
