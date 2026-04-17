@@ -10,6 +10,7 @@ public class PeliculaDAO {
      * Lista todas las películas de la base de datos
      * @return Lista de objetos clsPelicula
      */
+    //removi bitacora
     public List<clsPelicula> listar() {
         List<clsPelicula> lista = new ArrayList<>();
         String sql = "SELECT * FROM Peliculas";
