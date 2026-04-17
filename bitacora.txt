@@ -1,0 +1,107 @@
+commit 1b50308705cb1d5a9fbc23087e0ce2fd5e93efd7
+Merge: 018aa63 db6b468
+Author: Angel Mendez <lmendezf1@miumg.edu.gt>
+Date:   Fri Apr 17 14:57:06 2026 -0600
+
+    Merge pull request #6 from anng-mndz/RamaMantenimientos
+    
+    Cambios
+
+commit db6b46873b618de35c8556a05b4b97ceb7a6cd00
+Author: anng-mndz <lmendezf1@miumg.edu.gt>
+Date:   Fri Apr 17 14:56:31 2026 -0600
+
+    Cambios
+
+commit 018aa63d5480fbd15c0673bdd3c6a8eea39bf285
+Merge: bf2fe86 eaba3f4
+Author: Angel Mendez <lmendezf1@miumg.edu.gt>
+Date:   Fri Apr 17 13:32:59 2026 -0600
+
+    Merge pull request #5 from anng-mndz/RamaMantenimientos
+    
+    Formulario ya sirve
+
+commit eaba3f4daa8720629b72b15ed19adafad3abab7d
+Author: anng-mndz <lmendezf1@miumg.edu.gt>
+Date:   Fri Apr 17 13:31:31 2026 -0600
+
+    Formulario ya sirve
+
+commit bf2fe861b5aa791626c17234c779dadfeab1e094
+Merge: 8ea3446 eb92a5b
+Author: Angel Mendez <lmendezf1@miumg.edu.gt>
+Date:   Fri Apr 17 13:16:06 2026 -0600
+
+    Merge pull request #4 from anng-mndz/RamaMantenimientos
+    
+    Agregue script de BD
+
+commit eb92a5b5a90fccfe6a0154ca9569e3ac394e570a
+Author: anng-mndz <lmendezf1@miumg.edu.gt>
+Date:   Fri Apr 17 13:13:43 2026 -0600
+
+    Agregue script de BD
+
+commit 8ea344675c1df399c38a912f0ee6f042d9ab084f
+Merge: 68ceec6 45ff899
+Author: Angel Mendez <lmendezf1@miumg.edu.gt>
+Date:   Fri Apr 17 13:08:56 2026 -0600
+
+    Merge pull request #3 from anng-mndz/RamaMantenimientos
+    
+    Agregue formulario de Pelicula (No funciona)
+
+commit 45ff8991d6318f60850c1c6d3509ddc0d5e1c995
+Author: anng-mndz <lmendezf1@miumg.edu.gt>
+Date:   Fri Apr 17 13:08:06 2026 -0600
+
+    Agregue formulario de Pelicula (No funciona)
+
+commit 68ceec6377d170bd1e249258a8e04fbe84823826
+Merge: 6e6cd14 34009a1
+Author: Angel Mendez <lmendezf1@miumg.edu.gt>
+Date:   Fri Apr 17 12:51:18 2026 -0600
+
+    Merge pull request #2 from anng-mndz/RamaMantenimientos
+    
+    Rama mantenimientos
+
+commit 34009a16b906d711cc47d38e466c9f9863a0441f
+Author: anng-mndz <lmendezf1@miumg.edu.gt>
+Date:   Fri Apr 17 12:50:17 2026 -0600
+
+    Errores de Modelo
+
+commit 9e9773af26ad89813fd543ecc92efebe24aef4b4
+Author: anng-mndz <lmendezf1@miumg.edu.gt>
+Date:   Fri Apr 17 12:48:49 2026 -0600
+
+    Removi errores de Mantenimiento
+
+commit d129b4f2b6e599feebf1fd573754decad6b8bcd8
+Author: anng-mndz <lmendezf1@miumg.edu.gt>
+Date:   Fri Apr 17 12:46:37 2026 -0600
+
+    Solucione errores de Modelo
+
+commit 6e6cd148ddf7620314c705b1798cd9c9ea8285db
+Merge: 6586150 6117c63
+Author: Angel Mendez <lmendezf1@miumg.edu.gt>
+Date:   Fri Apr 17 12:45:12 2026 -0600
+
+    Merge pull request #1 from anng-mndz/RamaMantenimientos
+    
+    Agregue MVC, errores en M
+
+commit 6117c6331d19e26024b38dfca1d409f13547da78
+Author: anng-mndz <lmendezf1@miumg.edu.gt>
+Date:   Fri Apr 17 12:42:22 2026 -0600
+
+    Agregue MVC, errores en M
+
+commit 65861509e126e8bece7f0da8421ff5e8bb8255d0
+Author: Angel Mendez <lmendezf1@miumg.edu.gt>
+Date:   Fri Apr 17 11:45:13 2026 -0600
+
+    Initial commit
